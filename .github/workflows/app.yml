@@ -43,7 +43,7 @@ on:
     - app/**
 
 env:
-  AZURE_CONTAINER_REGISTRY: "crgaraksadvanceacr.azurecr.io"
+  AZURE_CONTAINER_REGISTRY: "crgaraksadvanceacr"
   CONTAINER_NAME: "demoapp"
   RESOURCE_GROUP: "crgar-aks-advance-rg"
   CLUSTER_NAME: "crgar-aks-advance-aks"
