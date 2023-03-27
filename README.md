@@ -1,4 +1,6 @@
+[![Terraform Infrastructure Deployment](https://github.com/crgarcia12/azure-aks-advanced/actions/workflows/infra.yml/badge.svg)](https://github.com/crgarcia12/azure-aks-advanced/actions/workflows/infra.yml)
 # azure-aks-advanced
+This project tries out different AKS features:
 
 # Set GitHub secrets
 Standing on the git directory:
