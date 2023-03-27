@@ -47,7 +47,7 @@ env:
   CONTAINER_NAME: "demoapp"
   RESOURCE_GROUP: "crgar-aks-advance-rg"
   CLUSTER_NAME: "crgar-aks-advance-aks"
-  DEPLOYMENT_MANIFEST_PATH: "/app/demoapp/deployment.yaml"
+  DEPLOYMENT_MANIFEST_PATH: "/app/aks-deployments/demoapp.yaml"
 
 jobs:
   buildImage:

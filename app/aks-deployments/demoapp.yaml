@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demoapp-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: demoapp-app
+  template:
+    metadata:
+      labels:
+        app: demoapp-app
+    spec:
+      containers:
+      - name: demoapp
+        image: crgaraksadvanceacr.azurecr.io/demoapp:4b5527e5026abcd6b43ccc39f0e9c4f046cd2462
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+      imagePullSecrets:
+      - name: crgaraksadvanceacr
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: demoapp-svc
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 80
+  selector:
+    app: demoapp-app
