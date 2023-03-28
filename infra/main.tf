@@ -1,6 +1,6 @@
 locals {
   prefix   = "crgar-aks-advance"
-  location = "westeurope"
+  location = "switzerlandnorth"
 }
 
 terraform {
