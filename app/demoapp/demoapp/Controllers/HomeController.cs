@@ -1,4 +1,5 @@
 ﻿using demoapp.Models;
+using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -15,7 +16,9 @@ namespace demoapp.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            string[] fileEntries = Directory.GetFiles("/mnt/demoappfiles");
+            
+            return View(fileEntries);
         }
 
         public IActionResult Privacy()
@@ -28,5 +31,6 @@ namespace demoapp.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
     }
 }
