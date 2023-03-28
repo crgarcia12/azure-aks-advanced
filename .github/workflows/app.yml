@@ -84,7 +84,7 @@ jobs:
       # Builds and pushes an image up to your Azure Container Registry
       - name: Build and push image to ACR
         run: |
-          az acr login -n  ${{ env.DEPLOYMENT_MANIFEST_PATH }}
+          az acr login -n  ${{ env.AZURE_CONTAINER_REGISTRY }}
 
           cd app/demoapp
           docker build -t ${{ env.AZURE_CONTAINER_REGISTRY }}.azurecr.io/${{ env.CONTAINER_NAME }}:${{ github.sha }} -t ${{ env.AZURE_CONTAINER_REGISTRY }}.azurecr.io/${{ env.CONTAINER_NAME }}:latest --file ./demoapp/Dockerfile .
