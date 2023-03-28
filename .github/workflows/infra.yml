@@ -1,4 +1,4 @@
-name: 'Terraform Infrastructure Deployment'
+name: '[Infra] Terraform Deployment'
 
 on:
   workflow_dispatch:  
