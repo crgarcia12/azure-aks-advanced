@@ -2,7 +2,7 @@ apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
   name: demoapp-storage-class
-provisioner: file.csi.azure.com
+provisioner: blob.csi.azure.com
 parameters:
   skuName: Standard_ZRS
 reclaimPolicy: Retain
