@@ -39,7 +39,7 @@ spec:
     spec:
       containers:
       - name: demoapp
-        image: crgaraksadvanceacr.azurecr.io/demoapp:d7b2bc3c1971751d35fbe652c60dbb98d5484372
+        image: crgaraksadvanceacr.azurecr.io/demoapp:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 80
@@ -82,7 +82,7 @@ spec:
     spec:
       containers:
       - name: demoapp2
-        image: crgaraksadvanceacr.azurecr.io/demoapp:d7b2bc3c1971751d35fbe652c60dbb98d5484372
+        image: crgaraksadvanceacr.azurecr.io/demoapp:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 80
