@@ -39,7 +39,7 @@ spec:
     spec:
       containers:
       - name: demoapp
-        image: crgaraksadvanceacr.azurecr.io/demoapp:4b5527e5026abcd6b43ccc39f0e9c4f046cd2462
+        image: crgaraksadvanceacr.azurecr.io/demoapp:d7b2bc3c1971751d35fbe652c60dbb98d5484372
         imagePullPolicy: Always
         ports:
         - containerPort: 80
@@ -64,3 +64,46 @@ spec:
     targetPort: 80
   selector:
     app: demoapp-app
+---
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demoapp2-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: demoapp2-app
+  template:
+    metadata:
+      labels:
+        app: demoapp2-app
+    spec:
+      containers:
+      - name: demoapp2
+        image: crgaraksadvanceacr.azurecr.io/demoapp:d7b2bc3c1971751d35fbe652c60dbb98d5484372
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+        volumeMounts:
+            - mountPath: "/mnt/demoappfiles"
+              name: volume
+      volumes:
+        - name: volume
+          persistentVolumeClaim:
+            claimName: demoapp-storage-claim
+      imagePullSecrets:
+      - name: crgaraksadvanceacr
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: demoapp2-svc
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 80
+  selector:
+    app: demoapp2-app
