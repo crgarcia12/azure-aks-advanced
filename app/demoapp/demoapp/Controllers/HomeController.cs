@@ -16,17 +16,21 @@ namespace demoapp.Controllers
 
         public IActionResult Index()
         {
-            string[] fileEntries = Directory.GetFiles("/mnt/demoappfiles");
-            
+            string[] fileEntries = { "error getting the files"};
+            try
+            {
+                fileEntries = Directory.GetFiles("/mnt/demoappfiles");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
             return View(fileEntries);
         }
 
         public IActionResult Privacy()
         {
-            for(int i = 0; i < 10; i++)
-            {
-                createFile("/mnt/demoappfiles/file${i}.txt");
-            }
+
             return View();
         }
 
@@ -36,8 +40,29 @@ namespace demoapp.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
+
+        public IActionResult CreateFiles()
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                CreateSingleFile($"/mnt/demoappfiles/file${i}.txt");
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult DeleteFiles()
+        {
+            foreach(string file in Directory.GetFiles("/mnt/demoappfiles"))
+            {
+                System.IO.File.Delete(file);
+            }
+
+            return RedirectToAction("Index");
+
+        }
         //Create a method that creates a file in an specific path
-        public void createFile(string fullFilePath)
+        private void CreateSingleFile(string fullFilePath)
         {
             //Check if the file already exists. If it does, delete it. 
             if (System.IO.File.Exists(fullFilePath))
