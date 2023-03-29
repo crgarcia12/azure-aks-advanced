@@ -39,7 +39,7 @@ spec:
     spec:
       containers:
       - name: demoapp
-        image: crgaraksadvanceacr.azurecr.io/demoapp:latest
+        image: crgaraksadvancedacr.azurecr.io/demoapp:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 80
@@ -51,7 +51,7 @@ spec:
           persistentVolumeClaim:
             claimName: demoapp-storage-claim
       imagePullSecrets:
-      - name: crgaraksadvanceacr
+      - name: crgaraksadvancedacr
 ---
 apiVersion: v1
 kind: Service
@@ -82,7 +82,7 @@ spec:
     spec:
       containers:
       - name: demoapp2
-        image: crgaraksadvanceacr.azurecr.io/demoapp:latest
+        image: crgaraksadvancedacr.azurecr.io/demoapp:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 80
@@ -94,7 +94,7 @@ spec:
           persistentVolumeClaim:
             claimName: demoapp-storage-claim
       imagePullSecrets:
-      - name: crgaraksadvanceacr
+      - name: crgaraksadvancedacr
 ---
 apiVersion: v1
 kind: Service
