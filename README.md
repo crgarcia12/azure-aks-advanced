@@ -6,7 +6,9 @@ This project tries out different AKS features:
 
 # Set terraform
 ```
-$resourceGroup = "crgar-aks-advanced-rg"
+pwsh
+
+$resourceGroup = "crgar-aks-advanced-terraform-rg"
 $storageName = "crgaraksadvancedtfm"
 $location = "switzerlandnorth"
 
@@ -42,5 +44,4 @@ $AZURECRED = @"
 "@
 
 gh secret set AZURE_CREDENTIALS  --repos crgarcia12/azure-aks-advanced --body "$AZURECRED"
-
 ```
