@@ -1,5 +1,5 @@
 locals {
-  prefix   = "crgar-aks-advance"
+  prefix   = "crgar-aks-advanced"
   location = "switzerlandnorth"
 }
 
@@ -11,7 +11,7 @@ terraform {
     }
   }
   backend "azurerm" {
-    resource_group_name  = "crgar-aks-advance-terraform-rg"
+    resource_group_name  = "crgar-aks-advanced-terraform-rg"
     storage_account_name = "crgaraksadvancetfstate"
     container_name       = "tfstate"
     key                  = "terraform.tfstate"

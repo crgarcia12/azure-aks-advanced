@@ -3,6 +3,17 @@
 # azure-aks-advanced
 This project tries out different AKS features:
 
+# Set terraform
+```
+$resourceGroup = "crgar-aks-advanced-rg"
+$storageName = "crgaraksadvancedtfm"
+$location = "switzerlandnorth"
+
+az group create --name $resourceGroup --location $location
+az storage account create --resource-group $resourceGroup --name $storageName --sku Standard_LRS
+az storage container create --name tfstate --account-name $storageName
+```
+
 # Set GitHub secrets
 Standing on the git directory:
 
