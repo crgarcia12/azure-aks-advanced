@@ -12,7 +12,7 @@ terraform {
   }
   backend "azurerm" {
     resource_group_name  = "crgar-aks-advanced-terraform-rg"
-    storage_account_name = "crgaraksadvancetfstate"
+    storage_account_name = "crgaraksadvancedtfm"
     container_name       = "tfstate"
     key                  = "terraform.tfstate"
   }
