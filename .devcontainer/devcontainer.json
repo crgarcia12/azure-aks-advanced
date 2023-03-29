@@ -11,7 +11,12 @@
             "nodeGypDependencies": false
         },
         "ghcr.io/devcontainers/features/powershell:1.1.0": {},
-        "ghcr.io/devcontainers/features/azure-cli:1.0.8": {}
+        "ghcr.io/devcontainers/features/azure-cli:1.0.8": {},
+        "ghcr.io/devcontainers/features/docker-in-docker:2": {},
+        "ghcr.io/devcontainers/features/dotnet:1": {},
+        "ghcr.io/devcontainers/features/terraform:1": {},
+        "ghcr.io/devcontainers/features/github-cli:1": {},
+        "ghcr.io/devcontainers/features/copilot:1": {}
     },
     "customizations": {
         "vscode": {
@@ -23,7 +28,7 @@
                 "ms-vscode.azurecli",
                 "ms-vscode.powershell",
                 "hashicorp.terraform",
-                "github.copilot"
+                "github.vscode-github-actions"
             ]
         }
     },
