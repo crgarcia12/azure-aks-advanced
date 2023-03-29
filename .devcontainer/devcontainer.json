@@ -35,7 +35,7 @@
     "forwardPorts": [
         5000
     ],
-    "postCreateCommand": "",
+    "postCreateCommand": "az aks install-cli",
     "remoteUser": "vscode",
     "hostRequirements": {
         "memory": "8gb"
