@@ -86,3 +86,6 @@ kubectl get secret rabbitmq-cluster-default-user \
 
 kubectl port-forward "service/rabbitmq-cluster" 15672
 ```
+
+# Kustomize
+Lot of good info and tips in here: https://blog.stack-labs.com/code/kustomize-101/
