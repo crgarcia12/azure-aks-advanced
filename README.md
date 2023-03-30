@@ -49,7 +49,6 @@ gh secret set AZURE_CREDENTIALS  --repos crgarcia12/azure-aks-advanced --body "$
 # RabbitMQ installation
 ```
 kubectl apply -f https://github.com/rabbitmq/cluster-operator/releases/latest/download/cluster-operator.yml
-kubectl apply -f https://raw.githubusercontent.com/rabbitmq/cluster-operator/main/docs/examples/hello-world/rabbitmq.yaml
 
 # Install krew
 (

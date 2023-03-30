@@ -82,7 +82,7 @@ jobs:
           use-kubelogin: 'true'
 
       # Builds and pushes an image up to your Azure Container Registry
-      - name: Build and push image to ACR
+      - name: Build + Push + Install rabbit operator
         run: |
           az acr login -n  ${{ env.AZURE_CONTAINER_REGISTRY }}
 
@@ -90,6 +90,9 @@ jobs:
           docker build -t ${{ env.AZURE_CONTAINER_REGISTRY }}.azurecr.io/${{ env.CONTAINER_NAME }}:${{ github.sha }} -t ${{ env.AZURE_CONTAINER_REGISTRY }}.azurecr.io/${{ env.CONTAINER_NAME }}:latest --file ./demoapp/Dockerfile .
           docker push ${{ env.AZURE_CONTAINER_REGISTRY }}.azurecr.io/${{ env.CONTAINER_NAME }}:${{ github.sha }}
           docker push ${{ env.AZURE_CONTAINER_REGISTRY }}.azurecr.io/${{ env.CONTAINER_NAME }}:latest
+
+          kubectl apply -f https://github.com/rabbitmq/cluster-operator/releases/latest/download/cluster-operator.yml
+
 
       # Deploys application based on given manifest file
       - name: Deploys application

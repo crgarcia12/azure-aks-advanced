@@ -14,21 +14,6 @@ parameters:
 reclaimPolicy: Delete
 volumeBindingMode: Immediate
 allowVolumeExpansion: true
-# ---
-# apiVersion: v1
-# kind: PersistentVolumeClaim
-# metadata:
-#   name: rabbit-storage-claim
-#   namespace: rabbitmq-cluster-ns
-#   annotations:
-#     volume.beta.kubernetes.io/storage-class: rabbit-storage-class
-# spec:
-#   accessModes:
-#   - ReadWriteMany
-#   storageClassName: rabbit-storage-class
-#   resources:
-#     requests:
-#       storage: 20Gi
 ---
 apiVersion: rabbitmq.com/v1beta1
 kind: RabbitmqCluster
