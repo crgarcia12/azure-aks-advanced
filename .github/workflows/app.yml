@@ -94,7 +94,7 @@ jobs:
       - name: Install rabbit operator
         run: |
           kubectl apply -f https://github.com/rabbitmq/cluster-operator/releases/latest/download/cluster-operator.yml
-          kubeclt apply -f rabbitmq.yaml
+          kubectl apply -f rabbitmq.yaml
 
       - name: Deploy demoapp
         run: |
