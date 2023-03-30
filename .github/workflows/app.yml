@@ -101,4 +101,4 @@ jobs:
         run: |
           cd app/aks-deployments/
           sed -i s/${{ env.CONTAINER_NAME }}:latest/${{ env.CONTAINER_NAME }}:${{ github.sha }}/g demoapp.yaml 
-          kubeclt apply -f demoapp.yaml
+          kubectl apply -f demoapp.yaml
