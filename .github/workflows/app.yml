@@ -94,9 +94,9 @@ jobs:
       - name: Install rabbit operator
         run: |
           kubectl apply -f https://github.com/rabbitmq/cluster-operator/releases/latest/download/cluster-operator.yml
-          kubeclt apply -f ./demoapp/rabbitmq.yaml
+          kubeclt apply -f rabbitmq.yaml
 
       - name: Deploy demoapp
         run: |
           sed -i s/${{ env.CONTAINER_NAME }}:latest/${{ env.CONTAINER_NAME }}:${{ github.sha }}/g demoapp.yaml 
-          kubeclt apply -f ./demoapp/demoapp.yaml
+          kubeclt apply -f demoapp.yaml
