@@ -26,14 +26,6 @@ resource "azurerm_resource_group" "spoke_rg" {
   location = local.location
 }
 
-module "aks" {
-  source              = "./modules/aks"
-  prefix              = local.prefix
-  location            = local.location
-  resource_group_name = azurerm_resource_group.spoke_rg.name
-  resource_group_id   = azurerm_resource_group.spoke_rg.id
-}
-
 resource "azurerm_log_analytics_workspace" "log_analytics_workspace" {
   name                = "acctest-01"
   location            = azurerm_resource_group.spoke_rg.location
@@ -41,3 +33,13 @@ resource "azurerm_log_analytics_workspace" "log_analytics_workspace" {
   sku                 = "PerGB2018"
   retention_in_days   = 30
 }
+
+module "aks" {
+  source                     = "./modules/aks"
+  prefix                     = local.prefix
+  location                   = local.location
+  resource_group_name        = azurerm_resource_group.spoke_rg.name
+  resource_group_id          = azurerm_resource_group.spoke_rg.id
+  log_analytics_workspace_id = azurerm_log_analytics_workspace.log_analytics_workspace.id
+}
+

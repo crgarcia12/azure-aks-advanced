@@ -16,7 +16,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
 
   default_node_pool {
     name       = "default"
-    node_count = 2
+    node_count = 1
     vm_size    = "Standard_D2_v2"
   }
 
@@ -40,6 +40,11 @@ resource "azurerm_kubernetes_cluster" "aks" {
     blob_driver_enabled = true
     file_driver_enabled = true
   }
+
+  oms_agent {
+    log_analytics_workspace_id = var.log_analytics_workspace_id
+  }
+
   tags = {
     environment = var.location
   }

@@ -5,23 +5,23 @@ metadata:
 provisioner: blob.csi.azure.com
 parameters:
   skuName: Standard_ZRS
-reclaimPolicy: Retain
+reclaimPolicy: Delete
 volumeBindingMode: WaitForFirstConsumer
 allowVolumeExpansion: true
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: demoapp-storage-claim
-  annotations:
-        volume.beta.kubernetes.io/storage-class: demoapp-storage-class
-spec:
-  accessModes:
-  - ReadWriteMany
-  storageClassName: demoapp-storage-class
-  resources:
-    requests:
-      storage: 1Gi
+# ---
+# apiVersion: v1
+# kind: PersistentVolumeClaim
+# metadata:
+#   name: demoapp-storage-claim
+#   annotations:
+#         volume.beta.kubernetes.io/storage-class: demoapp-storage-class
+# spec:
+#   accessModes:
+#   - ReadWriteMany
+#   storageClassName: demoapp-storage-class
+#   resources:
+#     requests:
+#       storage: 1Gi
 ---
 apiVersion: apps/v1
 kind: Deployment

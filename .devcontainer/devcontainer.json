@@ -37,7 +37,8 @@
         }
     },
     "forwardPorts": [
-        5000
+        5000,
+        15672
     ],
     "postCreateCommand": "sudo az aks install-cli",
     "remoteUser": "vscode",

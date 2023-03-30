@@ -61,17 +61,29 @@ kubectl apply -f https://raw.githubusercontent.com/rabbitmq/cluster-operator/mai
   tar zxvf "${KREW}.tar.gz" &&
   ./"${KREW}" install krew
 )
-
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
 kubectl krew install rabbitmq
-alias kr=kubectl rabbitmq
+alias k=kubectl
 alias kr='kubectl rabbitmq'
 
+kubectl config set-context --current --namespace=rabbitmq-cluster-ns
 kr list
-kr perf-test myrabbit \
+
+kr perf-test rabbitmq-cluster \
   --quorum-queue \
   --queue my-quorum-queue \
   --rate 1 \
   size 1
+
+k logs perf-test-vmnng -f
+kr secrets rabbitmq-cluster
+kubectl get secret rabbitmq-cluster-default-user \
+           -o jsonpath='{.data.username}' | base64 --decode
+kubectl get secret rabbitmq-cluster-default-user \
+           -o jsonpath='{.data.password}' | base64 --decode
+
+
+
+kubectl port-forward "service/rabbitmq-cluster" 15672
 ```

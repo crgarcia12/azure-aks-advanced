@@ -37,3 +37,7 @@ variable "ebpf_data_plane" {
   default     = "cilium"
 }
 
+variable "log_analytics_workspace_id" {
+  description = "log_analytics_workspace_id"
+  type        = string
+}
