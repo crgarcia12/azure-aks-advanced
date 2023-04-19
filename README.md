@@ -26,10 +26,10 @@ $servicePrincipalJson = az ad sp create-for-rbac --name "azure-aks-advanced-gith
 $servicePrincipalJson = [string]::Concat($servicePrincipalJson)
 $servicePrincipal = $servicePrincipalJson  | Convertfrom-json
 
-gh secret set AZURE_CLIENT_ID     --repos crgarcia12/azure-aks-advanced --body --body $servicePrincipal.clientId
-gh secret set AZURE_CLIENT_SECRET --repos crgarcia12/azure-aks-advanced --body --body $servicePrincipal.clientSecret
-gh secret set AZURE_TENANT_ID     --repos crgarcia12/azure-aks-advanced --body --body $servicePrincipal.tenantId
-gh secret set MVP_SUBSCRIPTION    --repos crgarcia12/azure-aks-advanced --body --body $servicePrincipal.subscriptionId
+gh secret set AZURE_CLIENT_ID     --repos crgarcia12/azure-aks-advanced --body $servicePrincipal.clientId
+gh secret set AZURE_CLIENT_SECRET --repos crgarcia12/azure-aks-advanced --body $servicePrincipal.clientSecret
+gh secret set AZURE_TENANT_ID     --repos crgarcia12/azure-aks-advanced --body $servicePrincipal.tenantId
+gh secret set MVP_SUBSCRIPTION    --repos crgarcia12/azure-aks-advanced --body $servicePrincipal.subscriptionId
 gh secret set AZURE_CREDENTIALS   --repos crgarcia12/azure-aks-advanced --body $servicePrincipalJson
 ```
 
