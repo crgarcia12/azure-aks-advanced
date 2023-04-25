@@ -20,6 +20,7 @@ namespace demoapp.Controllers
             try
             {
                 fileEntries = Directory.GetFiles("/mnt/demoappfiles");
+                fileEntries.Concat(Directory.GetDirectories("/mnt/secrets"));
             }
             catch (Exception ex)
             {
