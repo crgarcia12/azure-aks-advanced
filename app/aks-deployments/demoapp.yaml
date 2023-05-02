@@ -52,23 +52,23 @@ reclaimPolicy: Delete
 volumeBindingMode: WaitForFirstConsumer
 allowVolumeExpansion: true
 ---
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  namespace: demoapp-ns
-  name: demoapp-storage-claim
-  annotations:
-        volume.beta.kubernetes.io/storage-class: demoapp-storage-class
-spec:
-  accessModes:
-  - ReadWriteOnce
-  storageClassName: demoapp-storage-class
-  resources:
-    requests:
-      storage: 1Gi
+# apiVersion: v1
+# kind: PersistentVolumeClaim
+# metadata:
+#   namespace: demoapp-ns
+#   name: demoapp-storage-claim
+#   annotations:
+#         volume.beta.kubernetes.io/storage-class: demoapp-storage-class
+# spec:
+#   accessModes:
+#   - ReadWriteOnce
+#   storageClassName: demoapp-storage-class
+#   resources:
+#     requests:
+#       storage: 1Gi
 ---
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   namespace: demoapp-ns
   name: demoapp-deployment
@@ -77,6 +77,15 @@ spec:
   selector:
     matchLabels:
       app: demoapp-app
+  volumeClaimTemplates:
+  - metadata:
+      name: disk-volume
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: "demoapp-storage-class"
+      resources:
+        requests:
+          storage: 1Gi      
   template:
     metadata:
       labels:
