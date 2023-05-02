@@ -4,13 +4,18 @@
 # azure-aks-advanced
 This project tries out different AKS features:
 
+# Load environment variables to work with these commands
+
+```
+if (!(gci .\.local.env.ps1)) { cp .\.template.env.ps1 .local.env.ps1 }
+# complete the variables
+. .local.env.ps1
+```
+
 # Set terraform
 ```
 pwsh
 
-$resourceGroup = "crgar-aks-advanced-terraform-rg"
-$storageName = "crgaraksadvancedtfm"
-$location = "switzerlandnorth"
 
 az group create --name $resourceGroup --location $location
 az storage account create --resource-group $resourceGroup --name $storageName --sku Standard_LRS
@@ -76,3 +81,62 @@ kubectl port-forward "service/rabbitmq-cluster" 15672
 
 # Kustomize
 Lot of good info and tips in here: https://blog.stack-labs.com/code/kustomize-101/
+
+# Workload identity ## IN PROGRESS ##
+```
+export $(grep -v '^#' .env | xargs)
+az account set --subscription $subscriptionId
+az identity create --name $uami --resource-group $resourceGroup
+$uamiClientId = az identity show -g $resourceGroup --name $uami --query 'clientId' -o tsv
+$tenant = az aks show --name $clusterName --resource-group $resourceGroup --query identity.tenantId -o tsv
+
+az keyvault set-policy -n $keyVault --key-permissions get --spn $uamiClientId
+az keyvault set-policy -n $keyVault --secret-permissions get --spn $uamiClientId
+az keyvault set-policy -n $keyVault --certificate-permissions get --spn $uamiClientId
+
+$AksOidcIssuer = az aks show --resource-group $resourceGroup --name $clusterName --query "oidcIssuerProfile.issuerUrl" -o tsv
+Write-Verbose $AksOidcIssuer -Verbose
+
+kubectl get pods -n kube-system -l 'app in (secrets-store-csi-driver,secrets-store-provider-azure)'
+
+az keyvault secret set --vault-name $keyVault -n SomeSecret --value TheSecretValue
+k apply -f ..\app\aks-deployments\demoapp.yaml
+k get all -n demoapp-ns
+
+$federatedIdentityName = "workload-identity-feder-ident"
+az identity federated-credential create --name $federatedIdentityName --identity-name $uami --resource-group $resourceGroup --issuer $AksOidcIssuer --subject system:serviceaccount:demoapp-ns:workload-identity-serv-acct
+
+kubectl exec -n demoapp-ns --stdin --tty demoapp-deployment-6f4b8d587f-6blfg -- /bin/bash
+
+------
+
+# Azure Backup
+```
+az provider register --namespace Microsoft.KubernetesConfiguration
+az provider show -n Microsoft.KubernetesConfiguration -o table
+az extension add --name aks-preview
+az extension update --name aks-preview
+az feature register --namespace "Microsoft.ContainerService" --name "TrustedAccessPreview"
+# Wait for feature to be state:Registered
+az feature show --namespace "Microsoft.ContainerService" --name "TrustedAccessPreview"
+
+az k8s-extension create `
+  --name azure-aks-backup `
+  --extension-type microsoft.dataprotection.kubernetes `
+  --scope cluster `
+  --cluster-type managedClusters `
+  --cluster-name $clusterName `
+  --resource-group $resourceGroup  `
+  --release-train stable `
+  --debug `
+  --configuration-settings `
+    blobContainer=$blobContainer `
+    storageAccount=$storageName `
+    storageAccountResourceGroup=$resourceGroup `
+    storageAccountSubscriptionId=$subscriptionId
+
+az k8s-extension show --name azure-aks-backup --cluster-type managedClusters --cluster-name $clusterName --resource-group $resourceGroup
+
+az role assignment create --assignee-object-id $(az k8s-extension show --name azure-aks-backup --cluster-name <aksclustername> --resource-group <aksclusterrg> --cluster-type managedClusters --query identity.principalId --output tsv) --role 'Storage Account Contributor' --scope /subscriptions/<subscriptionid>/resourceGroups/<storageaccountrg>/providers/Microsoft.Storage/storageAccounts/<storageaccountname>
+
+```

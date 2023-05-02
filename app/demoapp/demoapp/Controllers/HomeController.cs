@@ -21,6 +21,7 @@ namespace demoapp.Controllers
             {
                 fileEntries = Directory.GetFiles("/mnt/demoappfiles");
                 fileEntries.Concat(Directory.GetDirectories("/mnt/secrets"));
+                Console.WriteLine("Files found: {0}", fileEntries.Length);
             }
             catch (Exception ex)
             {

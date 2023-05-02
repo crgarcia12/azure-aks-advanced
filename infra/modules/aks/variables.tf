@@ -41,3 +41,24 @@ variable "log_analytics_workspace_id" {
   description = "log_analytics_workspace_id"
   type        = string
 }
+
+################################
+#         Storage
+################################
+variable "container_name" {
+  type = string
+}
+variable "storage_name" {
+  type = string
+}
+variable "subscription_id" {
+  type = string
+}
+
+
+################################
+#         Backup
+################################
+variable "tenant_id" {
+  type = string
+}
