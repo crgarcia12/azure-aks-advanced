@@ -2,17 +2,33 @@
     ViewData["Title"] = "Home Page";
 }
 
-@model string[]
+@model FilesViewModel;
 
 <div class="text-center">
     <h1 class="display-4">Files</h1>
 
+    <p class="lead text-center">Files</p>
     <ul>
-        @foreach (string file in Model)
+        @foreach (string file in Model.Files)
         {
             <li>@file</li>
         }
     </ul>
+    <p class="lead text-center">Secrets</p>
+    <ul>
+        @foreach (string secret in Model.Secrets)
+        {
+            <li>@secret</li>
+        }
+    </ul>
+    <p class="lead text-center">Envuronment Variables</p>
+    <ul>
+        @foreach (string env in Model.EnvironmentVariables)
+        {
+            <li>@env</li>
+        }
+    </ul>
+
 </div>
 <div class="text-center">
     <input type="button"

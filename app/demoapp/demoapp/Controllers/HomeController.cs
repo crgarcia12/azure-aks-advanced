@@ -16,18 +16,25 @@ namespace demoapp.Controllers
 
         public IActionResult Index()
         {
-            string[] fileEntries = { "error getting the files"};
+            var filesViewModel = new FilesViewModel();
+            filesViewModel.Files = new string[] { "error getting the files"};
+            filesViewModel.EnvironmentVariables = new string[] { "error getting env variables"};
             try
             {
-                fileEntries = Directory.GetFiles("/mnt/demoappfiles");
-                fileEntries.Concat(Directory.GetDirectories("/mnt/secrets"));
-                Console.WriteLine("Files found: {0}", fileEntries.Length);
+                filesViewModel.Files = Directory.GetFiles("/mnt/demoappfiles");
+                filesViewModel.Secrets.Concat(Directory.GetDirectories("/mnt/secrets"));
+                filesViewModel.EnvironmentVariables = Environment.GetEnvironmentVariables().Keys.Cast<string>().ToArray();
+
+                Console.WriteLine("Files found: {0}", filesViewModel.Files.Length);
+                Console.WriteLine("Files found: {0}", filesViewModel.Secrets.Length);
+                Console.WriteLine("Environment Variables found: {0}", filesViewModel.EnvironmentVariables.Length);
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex);
+                throw;
             }
-            return View(fileEntries);
+            return View(filesViewModel);
         }
 
         public IActionResult Privacy()
