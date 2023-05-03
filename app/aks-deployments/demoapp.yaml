@@ -52,20 +52,20 @@ reclaimPolicy: Delete
 volumeBindingMode: WaitForFirstConsumer
 allowVolumeExpansion: true
 ---
-# apiVersion: v1
-# kind: PersistentVolumeClaim
-# metadata:
-#   namespace: demoapp-ns
-#   name: demoapp-storage-claim
-#   annotations:
-#         volume.beta.kubernetes.io/storage-class: demoapp-storage-class
-# spec:
-#   accessModes:
-#   - ReadWriteOnce
-#   storageClassName: demoapp-storage-class
-#   resources:
-#     requests:
-#       storage: 1Gi
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  namespace: demoapp-ns
+  name: demoapp-storage-claim
+  annotations:
+        volume.beta.kubernetes.io/storage-class: demoapp-storage-class
+spec:
+  accessModes:
+  - ReadWriteOnce
+  storageClassName: demoapp-storage-class
+  resources:
+    requests:
+      storage: 1Gi
 ---
 apiVersion: apps/v1
 kind: StatefulSet
@@ -101,9 +101,9 @@ spec:
         volumeMounts:
         - name: disk-volume
           mountPath: "/mnt/demoappfiles"
-        # - name: secrets-store-volume
-        #   mountPath: "/mnt/secrets"
-        #   readOnly: true
+        - name: secrets-store-volume
+          mountPath: "/mnt/secrets"
+          readOnly: true
         env:
         - name: NODE_NAME
           valueFrom:
@@ -129,12 +129,12 @@ spec:
       - name: disk-volume
         persistentVolumeClaim:
           claimName: demoapp-storage-claim
-      # - name: secrets-store-volume
-      #   csi:
-      #     driver: secrets-store.csi.k8s.io
-      #     readOnly: true
-      #     volumeAttributes:
-      #       secretProviderClass: "azure-kvname-workload-identity"
+      - name: secrets-store-volume
+        csi:
+          driver: secrets-store.csi.k8s.io
+          readOnly: true
+          volumeAttributes:
+            secretProviderClass: "azure-kvname-workload-identity"
       imagePullSecrets:
       - name: crgaraksadvancedacr
       affinity:

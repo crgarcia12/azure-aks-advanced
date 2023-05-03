@@ -66,7 +66,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "user-pool-1" {
   min_count             = 1
   max_count             = 1
   mode                  = "User"
-  node_taints = ["app=demoapp:NoSchedule"]
+  node_taints           = ["app=demoapp:NoSchedule"]
 }
 
 resource "azurerm_kubernetes_cluster_node_pool" "user-pool-2" {
@@ -79,7 +79,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "user-pool-2" {
   min_count             = 1
   max_count             = 1
   mode                  = "User"
-  node_taints = ["app=demoapp:NoSchedule"]   
+  node_taints           = ["app=demoapp:NoSchedule"]   
 
 }
 
