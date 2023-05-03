@@ -134,6 +134,11 @@ spec:
                 values:
                 - userpool1
                 - userpool2
+      tolerations:
+      - key: "app"
+        operator: "Equal"
+        value: "demoapp"
+        effect: "NoSchedule"
 ---
 apiVersion: v1
 kind: Service
