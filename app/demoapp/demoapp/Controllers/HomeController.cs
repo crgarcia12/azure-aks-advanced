@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using  demoapp.Helpers;
 
 namespace demoapp.Controllers
 {
@@ -21,8 +22,8 @@ namespace demoapp.Controllers
             filesViewModel.EnvironmentVariables = new string[] { "error getting env variables"};
             try
             {
-                filesViewModel.Files = Directory.GetFiles("/mnt/demoappfiles");
-                filesViewModel.Secrets = Directory.GetDirectories("/mnt/secrets");
+                filesViewModel.Files = FilesExtension.TryGetFiles("/mnt/demoappfiles");
+                filesViewModel.Secrets =  FilesExtension.TryGetFiles("/mnt/secrets");
                 filesViewModel.EnvironmentVariables = Environment.GetEnvironmentVariables().Keys.Cast<string>().ToArray();
 
                 Console.WriteLine("Files found: {0}", filesViewModel.Files.Length);
