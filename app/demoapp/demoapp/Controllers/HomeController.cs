@@ -55,7 +55,7 @@ namespace demoapp.Controllers
         {
             for (int i = 0; i < 10; i++)
             {
-                CreateSingleFile($"/mnt/demoappfiles/file${i}.txt");
+                CreateSingleFile($"/mnt/demoappfiles/file{i}.txt");
             }
 
             return RedirectToAction("Index");
