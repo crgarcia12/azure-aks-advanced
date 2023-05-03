@@ -22,7 +22,7 @@ namespace demoapp.Controllers
             try
             {
                 filesViewModel.Files = Directory.GetFiles("/mnt/demoappfiles");
-                filesViewModel.Secrets.Concat(Directory.GetDirectories("/mnt/secrets"));
+                filesViewModel.Secrets = Directory.GetDirectories("/mnt/secrets");
                 filesViewModel.EnvironmentVariables = Environment.GetEnvironmentVariables().Keys.Cast<string>().ToArray();
 
                 Console.WriteLine("Files found: {0}", filesViewModel.Files.Length);
