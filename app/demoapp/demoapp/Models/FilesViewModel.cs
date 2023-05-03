@@ -6,6 +6,7 @@ namespace demoapp.Models
 
         public string[] Secrets { get; set; }
 
-        public string[] EnvironmentVariables { get; set; }
+        public string[] EnvironmentVariablesNames { get; set; }
+        public string[] EnvironmentVariablesValues { get; set; }
     }
 }

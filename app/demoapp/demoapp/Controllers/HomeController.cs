@@ -19,16 +19,18 @@ namespace demoapp.Controllers
         {
             var filesViewModel = new FilesViewModel();
             filesViewModel.Files = new string[] { "error getting the files"};
-            filesViewModel.EnvironmentVariables = new string[] { "error getting env variables"};
+            filesViewModel.EnvironmentVariablesNames = new string[] { "error getting env variables"};
+            filesViewModel.EnvironmentVariablesValues = new string[] { "error getting env variables"};
             try
             {
                 filesViewModel.Files = FilesExtension.TryGetFiles("/mnt/demoappfiles");
                 filesViewModel.Secrets =  FilesExtension.TryGetFiles("/mnt/secrets");
-                filesViewModel.EnvironmentVariables = Environment.GetEnvironmentVariables().Keys.Cast<string>().ToArray();
+                filesViewModel.EnvironmentVariablesNames = Environment.GetEnvironmentVariables().Keys.Cast<string>().ToArray();
+                filesViewModel.EnvironmentVariablesValues = Environment.GetEnvironmentVariables().Values.Cast<string>().ToArray();
 
                 Console.WriteLine("Files found: {0}", filesViewModel.Files.Length);
                 Console.WriteLine("Files found: {0}", filesViewModel.Secrets.Length);
-                Console.WriteLine("Environment Variables found: {0}", filesViewModel.EnvironmentVariables.Length);
+                Console.WriteLine("Environment Variables found: {0}", filesViewModel.EnvironmentVariablesNames.Length);
             }
             catch (Exception ex)
             {
