@@ -15,7 +15,7 @@ namespace demoapp.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        private FilesViewModel GetFilesViewModel()
         {
             var filesViewModel = new FilesViewModel();
             filesViewModel.Files = new string[] { "error getting the files"};
@@ -37,6 +37,13 @@ namespace demoapp.Controllers
                 Debug.WriteLine(ex);
                 throw;
             }
+
+            return filesViewModel;
+        }
+
+        public IActionResult Index()
+        {
+            var filesViewModel = GetFilesViewModel();
             return View(filesViewModel);
         }
 
@@ -45,6 +52,13 @@ namespace demoapp.Controllers
 
             return View();
         }
+
+        public IActionResult EnvironmentVariables()
+        {
+            var filesViewModel = GetFilesViewModel();
+            return View(filesViewModel);
+        }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

@@ -1,0 +1,30 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+@model FilesViewModel;
+
+<div class="text-center">
+    <h1 class="display-4">Secrets</h1>
+    <ul>
+        @foreach (string secret in Model.Secrets)
+        {
+            <li>@secret</li>
+        }
+    </ul>
+    <h1 class="display-4">Environment Variables</h1>
+    <table class="center">
+        @for (int i = 0 ; i < Model.EnvironmentVariablesNames.Count(); i++)
+        {
+            <tr>
+                <th>@Model.EnvironmentVariablesNames[i]</th>
+                <th>@Model.EnvironmentVariablesValues[i]</th>
+            </tr>
+        }
+    </table>
+</div>
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
